@@ -1,0 +1,11 @@
+<div class="ui-splitter"
+     i18n:domain="raptus.mailcone.mails">
+    <div>
+        <div tal:replace="structure view.mailstable" />
+    </div>
+    <div id="ui-datatable-ajaxcontent">
+        <p i18n:translate="">
+            Select a Mail in the table above to display additional informations
+        </p>
+    </div>
+</div>
