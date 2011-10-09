@@ -15,11 +15,18 @@ class IMailContainer(IContainer):
     """
 
 
-
 class IMailContainerLocator(IContainerLocator):
     """ interface for locate the mails folder.
     """
 
+
+class IAttachment(interface.Interface):
+    """ attachment path
+    """
+    id =  schema.Int(title=_(u'Id'), required=True,)
+    mail_id = schema.Int(title=_(u'Id'), required=True,)
+    path =  schema.TextLine(title=_(u'Path to attachment'), required=True,)
+    filesize = schema.Int(title=_(u'File size'), required=True,)
 
 
 class IMail(interface.Interface):
@@ -39,7 +46,9 @@ class IMail(interface.Interface):
     header = schema.Text(title=_(u'Header'), required=True,)
     subject = schema.TextLine(title=_(u'Subject'), required=True, max_length=250)
     content = schema.Text(title=_(u'Content'), required=True,)
-    path_to_attachments = schema.Text(title=_(u'Attachments'), required=True,)
+    attachments = schema.Text(title=_(u'Attachments'), required=True,)
     matched = schema.Bool(title=_(u'Matched'), required=True,)
     match_on = schema.Date(title=_(u'Match on'), required=True,)
+
+
 

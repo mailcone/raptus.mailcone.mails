@@ -2,7 +2,8 @@ import grok
 
 from megrok import rdb
 
-from sqlalchemy import Column, Sequence
+from sqlalchemy import Column, Sequence, ForeignKey
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.types import Integer, String, Date, Text, Boolean
 
 from raptus.mailcone.core import bases
@@ -28,15 +29,25 @@ class MailContainerLocator(bases.BaseLocator):
 grok.global_utility(MailContainerLocator, provides=interfaces.IMailContainerLocator)
 
 
+class Attachment(rdb.Model):
+    grok.implements(interfaces.IAttachment)
+    database.schema(interfaces.IAttachment)
+    rdb.metadata(database.create_metadata)
+    rdb.tablename('attachments')
+    
+    id = Column(Integer, primary_key=True)
+    mail_id = Column(Integer, ForeignKey('mails.id'))
+
 
 class Mail(rdb.Model):
     grok.implements(interfaces.IMail)
     database.schema(interfaces.IMail)
     rdb.metadata(database.create_metadata)
-    rdb.tablename('mail')
+    rdb.tablename('mails')
     
     # all other attributes are set with the directive database.schema()
     id = Column ('id', Integer, Sequence('mail_id_seq'), primary_key=True)
+    attachments = relationship(Attachment)
 
-    
-    
+
+
