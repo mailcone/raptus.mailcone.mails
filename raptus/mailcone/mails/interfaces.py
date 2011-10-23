@@ -20,6 +20,13 @@ class IMailContainerLocator(IContainerLocator):
     """
 
 
+class IStringList(interface.Interface):
+    """ attachment path
+    """
+    id =  schema.Int(title=_(u'Id'), required=True,)
+    value = schema.TextLine(title=_(u'Value of this list'), required=True,)
+
+
 class IAttachment(interface.Interface):
     """ attachment path
     """
@@ -38,17 +45,41 @@ class IMail(interface.Interface):
     mail_from = schema.TextLine(title=_(u'Mail from'), required=True, max_length=250)
     mail_from_domain = schema.TextLine(title=_(u'Mail from Domain'), required=True, max_length=250)
     organisation = schema.TextLine(title=_(u'Organisation'), required=True, max_length=250)
-    mail_to = schema.TextLine(title=_(u'Mail to'), required=True, max_length=250)
-    mail_to_domain = schema.TextLine(title=_(u'Mail to domain'), required=True, max_length=250)
-    mail_cc = schema.TextLine(title=_(u'Mail CC'), required=True, max_length=250)
-    in_reply_to = schema.TextLine(title=_(u'In reply to'), required=True, max_length=250)
-    mail_references = schema.Text(title=_(u'Mail References'), required=True,)
-    header = schema.Text(title=_(u'Header'), required=True,)
     subject = schema.TextLine(title=_(u'Subject'), required=True, max_length=250)
+    mail_to = schema.List(title=_(u'Mail to'),
+                          required=True,
+                          value_type=schema.TextLine(title=_(u'Mail to'), required=True, max_length=250))
+    mail_to_domain = schema.List(title=_('Mail To Domain'),
+                                 required=True,
+                                 value_type=schema.TextLine(title=_(u'Mail To Domain'), required=True, max_length=250))
+    mail_cc = schema.List(title=_(u'Mail CC'),
+                          required=True,
+                          value_type=schema.TextLine(title=_(u'Mail CC'), required=True, max_length=250))
+    mail_cc_domain = schema.List(title=_('Mail CC Domain'),
+                                 required=True,
+                                 value_type=schema.TextLine(title=_(u'Mail CC Domain'), required=True, max_length=250))
+    mail_bbc = schema.List(title=_(u'Mail BBC'),
+                          required=True,
+                          value_type=schema.TextLine(title=_(u'Mail BBC'), required=True, max_length=250))
+    mail_bbc_domain = schema.List(title=_('Mail BBC Domain'),
+                                 required=True,
+                                 value_type=schema.TextLine(title=_(u'Mail BBC Domain'), required=True, max_length=250))
+    precedence = schema.TextLine(title=_(u'Precedence'), required=True, max_length=250)
+    received = schema.List(title=_(u'Received'),
+                          required=True,
+                          value_type=schema.TextLine(title=_(u'Received'), required=True, max_length=1000))
+    reply_to = schema.TextLine(title=_(u'Reply-To'), required=True, max_length=250)
+    sender = schema.TextLine(title=_(u'Sender'), required=True, max_length=250)
     content = schema.Text(title=_(u'Content'), required=True,)
-    attachments = schema.Text(title=_(u'Attachments'), required=True,)
-    matched = schema.Bool(title=_(u'Matched'), required=True,)
-    match_on = schema.Date(title=_(u'Match on'), required=True,)
+    attachments = schema.List(title=_(u'Attachments'),
+                              required=True,
+                              value_type=schema.Object(schema=IAttachment))
+    header = schema.Text(title=_(u'Header'), required=True,)
+    mime_version = schema.Text(title=_(u'Header'), required=True,)
+    x_source_ip = schema.TextLine(title=_(u'X-SourceIP'), required=True, max_length=250)
+    
+    processed_on = schema.Date(title=_('Processed on'), required=True,)
+
 
 
 

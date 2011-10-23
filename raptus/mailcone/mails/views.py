@@ -16,6 +16,7 @@ grok.templatedir('templates')
 class MailsDataTable(BaseDataTableSql):
     grok.context(interfaces.IMailContainer)
     interface_fields = interfaces.IMail
+    select_fields = ['id', 'date', 'mail_from', 'subject', 'organisation', 'processed_on']
     model = Mail
 
 
