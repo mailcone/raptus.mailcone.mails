@@ -9,7 +9,6 @@ from sqlalchemy.types import Integer, String, Date, Text, Boolean
 from raptus.mailcone.core import bases
 from raptus.mailcone.core import database
 from raptus.mailcone.core.interfaces import IMailcone, ISearchable
-
 from raptus.mailcone.mails import interfaces
 
 
@@ -50,6 +49,12 @@ class Mail(rdb.Model):
     # all other attributes are set with the directive database.schema()
     id = Column ('id', Integer, primary_key=True, unique=True)
     attachments = relation(Attachment, lazy='immediate')
+
+
+
+
+
+
 
 
 

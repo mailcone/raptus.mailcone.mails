@@ -21,7 +21,7 @@ class IMailContainerLocator(IContainerLocator):
 
 
 class IStringList(interface.Interface):
-    """ attachment path
+    """ reprencent a list with string
     """
     id =  schema.Int(title=_(u'Id'), required=True,)
     value = schema.TextLine(title=_(u'Value of this list'), required=True,)
@@ -75,7 +75,7 @@ class IMail(interface.Interface):
                               required=True,
                               value_type=schema.Object(schema=IAttachment))
     header = schema.Text(title=_(u'Header'), required=True,)
-    mime_version = schema.Text(title=_(u'Header'), required=True,)
+    mime_version = schema.Text(title=_(u'Mime Version'), required=True,)
     x_source_ip = schema.TextLine(title=_(u'X-SourceIP'), required=True, max_length=250)
     
     processed_on = schema.Date(title=_('Processed on'), required=True,)
