@@ -1,7 +1,9 @@
 <div class="ui-splitter"
      i18n:domain="raptus.mailcone.mails">
-    <div>
+    <div class="primar-view">
+      <div>
         <div tal:replace="structure view.mailstable" />
+      </div>
     </div>
     <div id="ui-datatable-ajaxcontent">
         <p i18n:translate="">
