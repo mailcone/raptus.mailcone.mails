@@ -1,6 +1,6 @@
 import grok
 
-from raptus.mailcone.layout.views import Page
+from raptus.mailcone.layout.views import Page, DisplayForm
 from raptus.mailcone.layout.datatable import BaseDataTableSql
 from raptus.mailcone.layout.interfaces import IOverviewMenu
 from raptus.mailcone.layout.navigation import locatormenuitem
@@ -20,6 +20,7 @@ class MailsDataTable(BaseDataTableSql):
     model = Mail
 
 
+
 class Mails(Page):
     grok.name('index')
     grok.context(interfaces.IMailContainer)
@@ -28,3 +29,10 @@ class Mails(Page):
     @property
     def mailstable(self):
         return MailsDataTable(self.context, self.request).html()
+
+
+
+class Mail(DisplayForm):
+    grok.name('index')
+    grok.context(interfaces.IMail)
+    from_fields = grok.AutoFields(interfaces.IMail)
