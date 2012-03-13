@@ -36,6 +36,13 @@ class IAttachment(interface.Interface):
     filesize = schema.Int(title=_(u'File size'), required=True,)
 
 
+
+class ITag(interface.Interface):
+    id =  schema.Int(title=_(u'Id'), required=True,)
+    name =  schema.TextLine(title=_(u'Tag name'), required=True,)
+
+
+
 class IMail(interface.Interface):
     """ A single mail
     """

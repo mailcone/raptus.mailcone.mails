@@ -2,7 +2,7 @@ import grok
 
 from megrok import rdb
 
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, Index
 from sqlalchemy.orm import relation
 from sqlalchemy.types import Integer, String, Date, Text, Boolean
 
@@ -40,6 +40,16 @@ class Attachment(rdb.Model):
 
 
 
+class Tag(rdb.Model):
+    grok.implements(interfaces.ITag)
+    database.schema(interfaces.ITag)
+    rdb.metadata(database.create_metadata)
+    rdb.tablename('tags')
+    
+    id = Column(Integer, primary_key=True)
+    mail_id = Column(Integer, ForeignKey('mails.id'))
+
+
 class Mail(rdb.Model):
     grok.implements(interfaces.IMail)
     database.schema(interfaces.IMail)
@@ -47,10 +57,17 @@ class Mail(rdb.Model):
     rdb.tablename('mails')
     
     # all other attributes are set with the directive database.schema()
-    id = Column ('id', Integer, primary_key=True, unique=True)
+    id = Column (Integer, primary_key=True, unique=True)
+    index_searchable = Column(String, index=True)
     attachments = relation(Attachment, lazy='immediate')
+    tags = relation(Tag, lazy='immediate')
 
-
+indexes = ('id', 'date', 'mail_from', 'subject', 'organisation', 'processed_on',)
+@grok.subscribe(interfaces.IMail, grok.IObjectModifiedEvent)
+def mails_index_searchable(obj, event):
+    obj.index_searchable = ''
+    for i in indexes:
+        obj.index_searchable += ' ' +str(getattr(obj, i))
 
 
 
