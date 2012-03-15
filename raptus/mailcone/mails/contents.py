@@ -29,7 +29,7 @@ grok.global_utility(MailContainerLocator, provides=interfaces.IMailContainerLoca
 
 
 
-class Attachment(rdb.Model):
+class Attachment(bases.ORMModel):
     grok.implements(interfaces.IAttachment)
     database.schema(interfaces.IAttachment)
     rdb.metadata(database.create_metadata)
@@ -40,7 +40,7 @@ class Attachment(rdb.Model):
 
 
 
-class Tag(rdb.Model):
+class Tag(bases.ORMModel):
     grok.implements(interfaces.ITag)
     database.schema(interfaces.ITag)
     rdb.metadata(database.create_metadata)
@@ -50,7 +50,7 @@ class Tag(rdb.Model):
     mail_id = Column(Integer, ForeignKey('mails.id'))
 
 
-class Mail(rdb.Model):
+class Mail(bases.ORMModel):
     grok.implements(interfaces.IMail)
     database.schema(interfaces.IMail)
     rdb.metadata(database.create_metadata)

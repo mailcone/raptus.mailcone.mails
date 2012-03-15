@@ -1,0 +1,57 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      i18n:domain="raptus.mailcone.mails"
+      tal:omit-tag="">
+  
+    <div class="ui-tabs mail-tab-view">
+        <ul>
+            <li>
+                <a i18n:translate=""
+                   href="#tab-mail">Mail</a>
+            </li>
+            <li>
+                <a i18n:translate=""
+                   href="#tab-content">Content</a>
+            </li>
+            <li tal:condition="view.attachments">
+                <a i18n:translate=""
+                   href="#tab-attachments">Attachments</a>
+            </li>
+        </ul>
+        <div id="tab-mail"
+             tal:content="structure view.displayform">
+        </div>
+        <div id="tab-content">
+                <textarea readonly="readonly"
+                          tal:content="structure view.content" />
+        </div>
+        <div tal:condition="view.attachments"
+             id="tab-attachments" class="display-form">
+            <ul>
+                <li tal:repeat="attachment view.attachments">
+                    <dl>
+                        <dt i18n:translate="">File:</dt>
+                        <dd tal:content="attachment.file"/>
+                        <dt i18n:translate="">Size:</dt>
+                        <dd tal:content="attachment.size"/>
+                        <dt i18n:translate="">ID:</dt>
+                        <dd tal:content="attachment.id"/>
+                        <dt i18n:translate="">Path:</dt>
+                        <dd tal:content="attachment.path"/>
+                        <dt i18n:translate="">Download:</dt>
+                        <dd>
+                            <a tal:attributes="href attachment.url" i18n:translate="">
+                                click here for downloading the attachment.
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</html>
+
+
+
+
