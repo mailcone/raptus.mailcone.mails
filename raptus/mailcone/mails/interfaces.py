@@ -78,13 +78,19 @@ class IMail(interface.Interface):
     reply_to = schema.TextLine(title=_(u'Reply-To'), required=True, max_length=250)
     sender = schema.TextLine(title=_(u'Sender'), required=True, max_length=250)
     content = schema.Text(title=_(u'Content'), required=True,)
+    multiparts = schema.List(title=_(u'Multiparts'),
+                             required=True,
+                             value_type=schema.Text(title=_(u'MailParts'), required=True, max_length=250))
+
     attachments = schema.List(title=_(u'Attachments'),
                               required=True,
                               value_type=schema.Object(schema=IAttachment))
     header = schema.Text(title=_(u'Header'), required=True,)
     mime_version = schema.Text(title=_(u'Mime Version'), required=True,)
     x_source_ip = schema.TextLine(title=_(u'X-SourceIP'), required=True, max_length=250)
-    
+
+    original_path = schema.TextLine(title=_(u'Original mail path'), required=True, max_length=250)
+    hash = schema.TextLine(title=_(u'Raw data hash'), required=True, max_length=32)
     processed_on = schema.Date(title=_('Processed on'), required=True,)
 
 

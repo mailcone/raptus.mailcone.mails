@@ -65,9 +65,9 @@ class Mail(bases.ORMModel):
 indexes = ('id', 'date', 'mail_from', 'subject', 'organisation', 'processed_on',)
 @grok.subscribe(interfaces.IMail, grok.IObjectModifiedEvent)
 def mails_index_searchable(obj, event):
-    obj.index_searchable = ''
+    obj.index_searchable = u''
     for i in indexes:
-        obj.index_searchable += ' ' +str(getattr(obj, i))
+        obj.index_searchable += u' ' +unicode(getattr(obj, i))
 
 
 
