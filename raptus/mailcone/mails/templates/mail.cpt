@@ -23,29 +23,38 @@
              tal:content="structure view.displayform">
         </div>
         <div id="tab-content">
-                <textarea readonly="readonly"
-                          tal:content="structure view.content" />
+                <div tal:replace="structure view.content" />
         </div>
         <div tal:condition="view.attachments"
              id="tab-attachments" class="display-form">
             <ul>
                 <li tal:repeat="attachment view.attachments">
-                    <dl>
-                        <dt i18n:translate="">File:</dt>
-                        <dd tal:content="attachment.file"/>
-                        <dt i18n:translate="">Size:</dt>
-                        <dd tal:content="attachment.size"/>
-                        <dt i18n:translate="">ID:</dt>
-                        <dd tal:content="attachment.id"/>
-                        <dt i18n:translate="">Path:</dt>
-                        <dd tal:content="attachment.path"/>
-                        <dt i18n:translate="">Download:</dt>
-                        <dd>
+                    <table class="display-form">
+                        <tr>
+                          <th i18n:translate="">File:</th>
+                          <td tal:content="attachment.file"/>
+                        </tr>
+                        <tr>
+                          <th i18n:translate="">Size:</th>
+                          <td tal:content="attachment.size"/>
+                        </tr>
+                        <tr>
+                          <th i18n:translate="">ID:</th>
+                          <td tal:content="attachment.id"/>
+                        </tr>
+                        <tr>
+                          <th i18n:translate="">Path:</th>
+                          <td tal:content="attachment.path"/>
+                        </tr>
+                        <tr>
+                          <th i18n:translate="">Download:</th>
+                          <td>
                             <a tal:attributes="href attachment.url" i18n:translate="">
                                 click here for downloading the attachment.
                             </a>
-                        </dd>
-                    </dl>
+                          </td>
+                        </tr>
+                    </table>
                 </li>
             </ul>
         </div>

@@ -58,7 +58,7 @@ class Mail(grok.View):
     
     @property
     def content(self):
-        return self.context.content
+        return self.context.content.replace('\n', '<br/>')
     
     @property
     def attachments(self):
