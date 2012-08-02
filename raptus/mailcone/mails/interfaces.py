@@ -28,7 +28,7 @@ class IStringList(interface.Interface):
 
 
 class IAttachment(interface.Interface):
-    """ attachment path
+    """ Interface description for a Attachment bind on a mail.
     """
     id =  schema.Int(title=_(u'Id'), required=True,)
     mail_id = schema.Int(title=_(u'Id'), required=True,)
@@ -38,13 +38,15 @@ class IAttachment(interface.Interface):
 
 
 class ITag(interface.Interface):
+    """ Interface description for a Tag bind on a mail.
+    """
     id =  schema.Int(title=_(u'Id'), required=True,)
     name =  schema.TextLine(title=_(u'Tag name'), required=True,)
 
 
 
 class IMail(interface.Interface):
-    """ A single mail
+    """ Interface description for a single mail.
     """
 
     id =  schema.Int(title=_(u'Id'), required=True,)
@@ -85,6 +87,9 @@ class IMail(interface.Interface):
     attachments = schema.List(title=_(u'Attachments'),
                               required=True,
                               value_type=schema.Object(schema=IAttachment))
+    tags = schema.List( title=_(u'Attachments'),
+                        required=True,
+                        value_type=schema.Object(schema=ITag))
     header = schema.Text(title=_(u'Header'), required=True,)
     mime_version = schema.Text(title=_(u'Mime Version'), required=True,)
     x_source_ip = schema.TextLine(title=_(u'X-SourceIP'), required=True, max_length=250)
