@@ -46,7 +46,7 @@ class Mails(Page):
 class MailDisplayForm(DisplayForm):
     grok.name('mail_display_form')
     grok.context(interfaces.IMail)
-    form_fields = grok.Fields(interfaces.IMail).omit('attachments', 'content')
+    form_fields = grok.Fields(interfaces.IMail).omit('attachments', 'content', 'multiparts', 'tags')
 
 
 

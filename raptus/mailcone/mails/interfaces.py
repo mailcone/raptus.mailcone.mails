@@ -50,7 +50,7 @@ class IMail(interface.Interface):
     """
 
     id =  schema.Int(title=_(u'Id'), required=True,)
-    date =  schema.Date(title=_(u'Date'), required=True,)
+    date =  schema.Datetime(title=_(u'Date'), required=True,)
     mail_from = schema.TextLine(title=_(u'Mail from'), required=True, max_length=250)
     mail_from_domain = schema.TextLine(title=_(u'Mail from Domain'), required=True, max_length=250)
     organisation = schema.TextLine(title=_(u'Organisation'), required=True, max_length=250)
@@ -87,7 +87,7 @@ class IMail(interface.Interface):
     attachments = schema.List(title=_(u'Attachments'),
                               required=True,
                               value_type=schema.Object(schema=IAttachment))
-    tags = schema.List( title=_(u'Attachments'),
+    tags = schema.List( title=_(u'Tags'),
                         required=True,
                         value_type=schema.Object(schema=ITag))
     header = schema.Text(title=_(u'Header'), required=True,)
@@ -96,7 +96,7 @@ class IMail(interface.Interface):
 
     original_path = schema.TextLine(title=_(u'Original mail path'), required=True, max_length=250)
     hash = schema.TextLine(title=_(u'Raw data hash'), required=True, max_length=32)
-    processed_on = schema.Date(title=_('Processed on'), required=True,)
+    processed_on = schema.Datetime(title=_('Processed on'), required=True,)
 
 
 
