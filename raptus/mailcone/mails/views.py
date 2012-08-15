@@ -6,7 +6,7 @@ from zope import component
 from zope.publisher.interfaces import NotFound
 from zope.publisher.interfaces.http import IResult
 
-from raptus.mailcone.layout.views import Page, DisplayForm
+from raptus.mailcone.layout.views import Page, DisplayForm, DeleteForm
 from raptus.mailcone.layout.datatable import BaseDataTableSql
 from raptus.mailcone.layout.interfaces import IOverviewMenu
 from raptus.mailcone.layout.navigation import locatormenuitem
@@ -27,7 +27,9 @@ class MailsDataTable(BaseDataTableSql):
     interface_fields = interfaces.IMail
     select_fields = ['id', 'date', 'mail_from', 'subject', 'organisation', 'processed_on']
     model = contents.Mail
-
+    actions = ( dict( title = _('delete'),
+                      cssclass = 'ui-icon ui-icon-trash ui-modal-minsize ui-datatable-ajaxlink',
+                      link = 'deletemailform'),)
 
 
 class Mails(Page):
@@ -80,6 +82,13 @@ class Mail(grok.View):
                 return "%3.1f%s" % (num, x)
             num /= 1024.0
 
+
+class DeleteMailForm(DeleteForm):
+    grok.context(interfaces.IMail)
+    grok.require('zope.View')
+    
+    def item_title(self):
+        return _('Mail ${id}', mapping=dict(id=self.context.id))
 
 
 class File(object):

@@ -23,7 +23,7 @@
              tal:content="structure view.displayform">
         </div>
         <div id="tab-content">
-                <div tal:replace="structure view.content" />
+                <span tal:replace="structure view.content" />
         </div>
         <div tal:condition="view.attachments"
              id="tab-attachments" class="display-form">

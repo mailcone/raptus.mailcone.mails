@@ -1,4 +1,6 @@
+import os
 import grok
+import logging
 
 from megrok import rdb
 
@@ -11,6 +13,7 @@ from raptus.mailcone.core import database
 from raptus.mailcone.core.interfaces import IMailcone, ISearchable
 from raptus.mailcone.mails import interfaces
 
+logger = logging.getLogger('raptus.mailcone.mails')
 
 
 class MailContainer(bases.QueryContainer):
@@ -67,10 +70,18 @@ indexes = ('id', 'date', 'mail_from', 'subject', 'organisation', 'processed_on',
 def mails_index_searchable(obj, event):
     obj.index_searchable = u''
     for i in indexes:
-        obj.index_searchable += u' ' +unicode(getattr(obj, i))
+        obj.index_searchable += u' ' + unicode(getattr(obj, i))
 
 
-
+@grok.subscribe(interfaces.IMail, grok.IObjectRemovedEvent)
+def mail_deleted_event(obj, event):
+    logger.info('%s' % event.oldName)
+    for attach in obj.attachments:
+        if os.path.exists(attach.path) and os.path.isfile(attach.path):
+            os.remove(attach.path)
+            logger.info('attachment at %s deleted' % attach.path)
+        else:
+            loggger.warning('inpossible to delete attachment at %s' % attach.path)
 
 
 
