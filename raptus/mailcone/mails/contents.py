@@ -39,7 +39,7 @@ class Attachment(bases.ORMModel):
     rdb.tablename('attachments')
     
     id = Column(Integer, primary_key=True)
-    mail_id = Column(Integer, ForeignKey('mails.id'))
+    mail_id = Column(Integer, ForeignKey('mails.id', ondelete='CASCADE'))
 
 
 
@@ -50,7 +50,7 @@ class Tag(bases.ORMModel):
     rdb.tablename('tags')
     
     id = Column(Integer, primary_key=True)
-    mail_id = Column(Integer, ForeignKey('mails.id'))
+    mail_id = Column(Integer, ForeignKey('mails.id', ondelete='CASCADE'))
 
 
 class Mail(bases.ORMModel):
