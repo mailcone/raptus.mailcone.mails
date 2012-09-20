@@ -6,7 +6,7 @@ from megrok import rdb
 
 from sqlalchemy import Column, ForeignKey, Index
 from sqlalchemy.orm import relation
-from sqlalchemy.types import Integer, String, Date, Text, Boolean
+from sqlalchemy.types import Integer, BigInteger, String, Date, Text, Boolean
 
 from raptus.mailcone.core import bases
 from raptus.mailcone.core import database
@@ -38,8 +38,8 @@ class Attachment(bases.ORMModel):
     rdb.metadata(database.create_metadata)
     rdb.tablename('attachments')
     
-    id = Column(Integer, primary_key=True)
-    mail_id = Column(Integer, ForeignKey('mails.id', ondelete='CASCADE'))
+    id = Column(BigInteger, primary_key=True)
+    mail_id = Column(BigInteger, ForeignKey('mails.id', ondelete='CASCADE'))
 
 
 
@@ -49,8 +49,8 @@ class Tag(bases.ORMModel):
     rdb.metadata(database.create_metadata)
     rdb.tablename('tags')
     
-    id = Column(Integer, primary_key=True)
-    mail_id = Column(Integer, ForeignKey('mails.id', ondelete='CASCADE'))
+    id = Column(BigInteger, primary_key=True)
+    mail_id = Column(BigInteger, ForeignKey('mails.id', ondelete='CASCADE'))
 
 
 class Mail(bases.ORMModel):
@@ -60,7 +60,7 @@ class Mail(bases.ORMModel):
     rdb.tablename('mails')
     
     # all other attributes are set with the directive database.schema()
-    id = Column (Integer, primary_key=True, unique=True)
+    id = Column (BigInteger, primary_key=True, unique=True)
     index_searchable = Column(String, index=True)
     attachments = relation(Attachment, lazy='immediate')
     tags = relation(Tag, lazy='immediate')
